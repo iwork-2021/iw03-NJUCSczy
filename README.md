@@ -1,20 +1,14 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=6065871&assignment_repo_type=AssignmentRepo)
-# iw03
+# iw03实验报告
 
-请基于模板工程，为https://itsc.nju.edu.cn开发一个iOS客户端。
+一、NewsTableViewCell类
+---------------------------
+前四个栏目的TableViewCell均使用此类，在cell上展示新闻的标题和日期。
 
-功能要求如下：
+二、NewsTableViewController类
+---------
+前四个栏目的TableViewController类与此类类似。此类包含一个子类News，其中定义了一条新闻的标题、日期和跳转URL。在初始化或翻页时，根据当前页码，通过load_web()，获取当前新闻目录网页的html源码，并从中解析出对应的新闻标题、日期、跳转URL，然后存储进NewsArray数组中。已经加载完成的新闻条目信息会存储在数组中，不需要重复下载。最后，在点击一个TableViewCell时，会跳转到InfoViewController界面，在prepare()函数中将点击的新闻条目的跳转URL传给对应的界面。
 
-1. App界面设计见模板工程的Main Storyboard，首届面通过tab bar controller分为5个栏目
-2. 前4个分别对应网站4个信息栏目（如下），下载list.htm内容并将新闻条目解析显示在Table View中
-   - https://itsc.nju.edu.cn/xwdt/list.htm
-   - https://itsc.nju.edu.cn/tzgg/list.htm
-   - https://itsc.nju.edu.cn/wlyxqk/list.htm
-   - https://itsc.nju.edu.cn/aqtg/list.htm
-3. 点击table view中任意一个cell，获取该cell对应新闻的详细内容页面，解析内容并展示在内容详情场景中
-4. 最后一个栏目显示 https://itsc.nju.edu.cn/main.htm 最后“关于我们”部分的信息
-
-非功能需求如下：
-1. 界面美观（通过自动化布局适配多种设备）
-2. 性能良好（用GCD进行并发编程，网络通信应考虑缓冲已下载数据内容）
-
+三、InfoTableViewController类
+-------------
+用于显示新闻详细信息的类，顶端有一张UIImage，其余部分用于显示网页中的内容。根据传入的URL，此类在初始化时解析网页的html源码，解析出其中的content部分，然后展示在此场景的WebView中。每次从网页完成下载后，会将content内容存储在一个以URL作为key值的字典中，并存储在文件中。如果文件中已有对应新闻界面的信息，则不会重复下载。
+AboutUsViewController类实现方法也与此类类似。
